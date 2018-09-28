@@ -1,4 +1,4 @@
 vim
 ===
 
-my vimfiles
+vimfiles
