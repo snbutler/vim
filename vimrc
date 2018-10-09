@@ -9,27 +9,28 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" let Vundle manage Vundle
-" required! 
+" let Vundle manage Vundle -- required! 
 Bundle 'gmarik/vundle'
 
-" My Bundles here:
+" my bundles:
 Bundle 'majutsushi/tagbar'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-surround'
+Bundle 'itchyny/lightline.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'junegunn/vim-easy-align'
+Bundle 'airblade/vim-gitgutter'
 
-" Github repos of the user 'vim-scripts'
-" => can omit the username part
+" github repos of the user 'vim-scripts' => can omit the username part
 Bundle 'taglist.vim'
 "Bundle 'L9'
 "Bundle 'FuzzyFinder'
 
 " non github repos
 Bundle 'git://git.wincent.com/command-t.git'
-" ...
 
-filetype plugin indent on     " required!
+filetype plugin indent on " required!
 "}}}
 "{{{ general stuff
 set tabstop=4
@@ -40,19 +41,23 @@ set foldopen=block,hor,mark,percent,quickfix,search,undo
 set number
 set nowrap
 set fo=qcrotc
+set laststatus=2
 "}}}
 "{{{ search options
 set incsearch
 set ignorecase smartcase
 "}}}
 "{{{ appearance
-let g:solarized_underline=0       "default value is 1
-let g:solarized_contrast="high"   "default value is normal
-let g:solarized_visibility="high" "default value is normal
+let g:solarized_underline  = 0      "default value is 1
+let g:solarized_contrast   = "high" "default value is normal
+let g:solarized_visibility = "high" "default value is normal
+
+let g:lightline = { 'colorscheme': 'jellybeans', }
+
 syntax enable
 set background=dark
 colorscheme solarized
-set guifont=Monospace\ 8
+set guifont=Monospace\ 10
 "}}}
 "{{{ window motions unimpaired style
 noremap <silent> [w <C-W><Left>
@@ -73,6 +78,7 @@ let Tlist_Enable_Fold_Column = 0
 set wildmode=longest,list,full
 set wildmenu
 "}}}
+
 "{{{ custom fold text
 fu! CustomFoldText()
     "get first non-blank line
@@ -84,7 +90,7 @@ fu! CustomFoldText()
     else
         let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
     endif
-    let line = substitute(line, '[^ ]*{{{ ', '', '')
+    let line = ">> " . substitute(line, '[^ ]*{{{ ', '', '')
 
     let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
     let foldSize = 1 + v:foldend - v:foldstart - 2
