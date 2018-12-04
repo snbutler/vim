@@ -21,6 +21,8 @@ Bundle 'itchyny/lightline.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'junegunn/vim-easy-align'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'tmhedberg/simpylfold'
 
 " github repos of the user 'vim-scripts' => can omit the username part
 Bundle 'taglist.vim'
