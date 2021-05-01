@@ -6,32 +6,33 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle -- required! 
-Bundle 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
 " my bundles:
-Bundle 'majutsushi/tagbar'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-surround'
-Bundle 'itchyny/lightline.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'junegunn/vim-easy-align'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'tmhedberg/simpylfold'
+Plugin 'majutsushi/tagbar'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-surround'
+Plugin 'itchyny/lightline.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'tmhedberg/simpylfold'
 
 " github repos of the user 'vim-scripts' => can omit the username part
-Bundle 'taglist.vim'
-"Bundle 'L9'
-"Bundle 'FuzzyFinder'
+Plugin 'taglist.vim'
+"Plugin 'L9'
+"Plugin 'FuzzyFinder'
 
 " non github repos
-Bundle 'git://git.wincent.com/command-t.git'
+Plugin 'git://git.wincent.com/command-t.git'
 
+call vundle#end()
 filetype plugin indent on " required!
 "}}}
 "{{{ general stuff
