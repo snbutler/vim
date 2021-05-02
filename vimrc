@@ -61,6 +61,8 @@ syntax enable
 set background=dark
 colorscheme solarized
 set guifont=Monospace\ 10
+set guioptions=aegiLtm
+
 "}}}
 "{{{ window motions unimpaired style
 noremap <silent> [w <C-W><Left>
