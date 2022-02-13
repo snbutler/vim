@@ -7,7 +7,7 @@ set nocompatible               " be iMproved
 filetype off                   " required!
 set shellslash
 
-set rtp+=~/vimfiles/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle -- required! 
@@ -125,8 +125,11 @@ let g:cpp_concepts_highlight = 1
 
 " let g:cpp_no_function_highlight = 1
 "}}}
-
+"{{{ col: cpp settings
 autocmd FileType cpp setlocal commentstring=//%s
+autocmd FileType cpp set foldmethod=syntax
+"}}}
+
 "{{{ fun: custom fold text
 fu! CustomFoldText()
     "get first non-blank line
@@ -140,14 +143,16 @@ fu! CustomFoldText()
     endif
     let line = substitute(line, '[^ ]*{{{ ', '', '')
 
-    let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
-    let foldSize = 1 + v:foldend - v:foldstart - 2
-    let foldSizeStr = " " . foldSize . " lines "
-    let foldLevelStr = repeat("+--", v:foldlevel)
-    let lineCount = line("$")
-    let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
-    let expansionString = repeat(" ", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
-    return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+    let w               = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+    let foldSize        = 1 + v:foldend - v:foldstart - 2
+    let foldSizeStr     = "[" . foldSize . " lines]"
+    let foldLevelStr    = repeat("+--", v:foldlevel)
+    let lineCount       = line("$")
+    let foldPercentage  = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
+    "let expansionString = repeat(" ", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
+    let expansionString = repeat(" ", w - strwidth(foldSizeStr.line))
+    "return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+    return line . expansionString . foldSizeStr
 endf
 set foldtext=CustomFoldText()
 "}}}
