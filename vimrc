@@ -129,6 +129,9 @@ let g:cpp_concepts_highlight = 1
 autocmd FileType cpp setlocal commentstring=//%s
 autocmd FileType cpp set foldmethod=syntax
 "}}}
+"{{{ col: shortcuts
+noremap <leader>d :VCDiff<cr>
+"}}}
 
 "{{{ fun: custom fold text
 fu! CustomFoldText()
