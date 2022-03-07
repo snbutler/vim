@@ -125,10 +125,6 @@ let g:cpp_concepts_highlight = 1
 
 " let g:cpp_no_function_highlight = 1
 "}}}
-"{{{ col: cpp settings
-autocmd FileType cpp setlocal commentstring=//%s
-autocmd FileType cpp set foldmethod=syntax
-"}}}
 
 "{{{ fun: custom fold text
 fu! CustomFoldText()
@@ -136,11 +132,13 @@ fu! CustomFoldText()
     let fs = v:foldstart
     while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
     endwhile
+
     if fs > v:foldend
         let line = getline(v:foldstart)
     else
         let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
     endif
+
     let line = substitute(line, '[^ ]*{{{ ', '', '')
 
     let w               = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
@@ -155,4 +153,34 @@ fu! CustomFoldText()
     return line . expansionString . foldSizeStr
 endf
 set foldtext=CustomFoldText()
+"}}}
+"{{{ col: cpp settings
+"{{{ fun: VSFoldText
+fu! VSFoldText()
+    "get first non-blank line
+    let fs = v:foldstart
+    while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
+    endwhile
+    if fs > v:foldend
+        let line = getline(v:foldstart)
+    else
+        let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+    endif
+    let line = substitute(line, '#pragma region ', '', '')
+    let w               = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+    let foldSize        = 1 + v:foldend - v:foldstart - 2
+    let foldSizeStr     = "[" . foldSize . " lines]"
+    let foldLevelStr    = repeat("+--", v:foldlevel)
+    let lineCount       = line("$")
+    let foldPercentage  = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
+    "let expansionString = repeat(" ", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
+    let expansionString = repeat(" ", w - strwidth(foldSizeStr.line))
+    "return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+    return line . expansionString . foldSizeStr
+endf
+"}}}
+autocmd FileType cpp setlocal foldtext=VSFoldText()
+autocmd FileType cpp setlocal commentstring="//%s
+autocmd FileType cpp setlocal foldmethod=syntax
+autocmd FileType cpp setlocal foldmarker=#pragma\ region,#pragma\ endregion
 "}}}
